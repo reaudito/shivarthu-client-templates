@@ -10,6 +10,7 @@ use subxt::utils::AccountId32;
 pub fn SignTransaction() -> impl IntoView {
     let params = use_params_map();
 
+    {% if params_type is containing("account") %}
     let {{params_variable}} = move || {
         params.with(|params| {
             params
@@ -18,6 +19,21 @@ pub fn SignTransaction() -> impl IntoView {
                 .unwrap_or_default()
         })
     };
+    {% endif %}
+
+    {% if params_type is containing("number") %}
+
+    let {{params_variable}} = move || {
+        params.with(|params| {
+            params
+                .get("{{params_variable}}")
+                .cloned()
+                .and_then(|value| value.parse::<u64>().ok())
+                .unwrap_or_default()
+        })
+    };
+
+    {% endif %}
     view! { <ExtensionSignIn {{params_variable}}={{params_variable}}()/> }
 }
 
@@ -75,11 +91,22 @@ pub fn ExtensionTransaction(
             set_error,
             set_extrinsic_success,
         )| async move {
+
+            {% if params_type is containing("account") %}
             let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
 
             let tx = polkadot::tx()
                 .{{template_function_name}}()
                 .pass_period(account_id32);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+            let tx = polkadot::tx()
+            .{{template_function_name}}()
+            .pass_period({{params_variable}});
+
+            {% endif %}
+
             sign_in_with_extension(
                 tx,
                 account_address,

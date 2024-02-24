@@ -72,6 +72,7 @@ pub fn ExtensionTransaction(
             set_error,
             set_extrinsic_success,
         )| async move {
+            {% if params_type is containing("account") %}
             let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
             let salt_vec = salt.as_bytes().to_vec();
 
@@ -79,6 +80,17 @@ pub fn ExtensionTransaction(
                 polkadot::tx()
                     .{{template_function_name}}()
                     .reveal_vote(account_id32, choice, salt_vec);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+            let salt_vec = salt.as_bytes().to_vec();
+
+            let tx =
+                polkadot::tx()
+                    .{{template_function_name}}()
+                    .reveal_vote({{params_variable}}, choice, salt_vec);
+
+            {% endif %}
 
             sign_in_with_extension(
                 tx,

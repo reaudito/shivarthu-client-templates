@@ -68,11 +68,23 @@ pub fn ExtensionTransaction(
             set_error,
             set_extrinsic_success,
         )| async move {
-            let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
 
+            {% if params_type is containing("account") %}
+            let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
+   
             let tx = polkadot::tx()
                 .{{template_function_name}}()
                 .draw_jurors(account_id32, iterations);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+
+            let tx = polkadot::tx()
+                .{{template_function_name}}()
+                .draw_jurors({{params_variable}}, iterations);
+
+            {% endif %}
+
             sign_in_with_extension(
                 tx,
                 account_address,

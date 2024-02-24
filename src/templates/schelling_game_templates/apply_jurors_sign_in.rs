@@ -43,7 +43,7 @@ pub fn ExtensionSignIn(stake: u128, {{params_variable}}: {{params_variable_type}
 #[component]
 pub fn ExtensionTransaction(
     stake: u128,
-    {{params_variable}}: String,
+    {{params_variable}}: {{params_variable_type}},
     account_address: String,
     account_source: String,
 ) -> impl IntoView {
@@ -68,11 +68,21 @@ pub fn ExtensionTransaction(
             set_error,
             set_extrinsic_success,
         )| async move {
+
+            {% if params_type is containing("account") %}
             let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
 
             let tx = polkadot::tx()
                 .{{template_function_name}}()
                 .apply_jurors(account_id32, stake);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+            let tx = polkadot::tx()
+                .{{template_function_name}}()
+                .apply_jurors({{params_variable}}, stake);
+            {% endif %}
+
             sign_in_with_extension(
                 tx,
                 account_address,

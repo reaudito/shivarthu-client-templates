@@ -64,11 +64,20 @@ pub fn ExtensionTransaction(
             set_error,
             set_extrinsic_success,
         )| async move {
+
+            {% if params_type is containing("account") %}
             let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
 
             let tx = polkadot::tx()
                 .{{template_function_name}}()
                 .get_incentives(account_id32);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+            let tx = polkadot::tx()
+            .{{template_function_name}}()
+            .get_incentives({{params_variable}});
+            {% endif %}
 
             sign_in_with_extension(
                 tx,

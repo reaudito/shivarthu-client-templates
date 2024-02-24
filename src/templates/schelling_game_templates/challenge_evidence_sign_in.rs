@@ -69,11 +69,21 @@ pub fn ExtensionTransaction(
             set_extrinsic_success,
         )| async move {
             let content: Content = Content::IPFS(post_cid.as_bytes().to_vec());
+
+            {% if params_type is containing("account") %}
             let account_id32 = AccountId32::from_str(&{{params_variable}}.clone()).unwrap();
 
             let tx = polkadot::tx()
                 .{{template_function_name}}()
                 .challenge_profile(account_id32, content);
+            {% endif %}
+
+            {% if params_type is containing("number") %}
+
+            let tx = polkadot::tx()
+            .{{template_function_name}}()
+            .challenge_profile({{params_variable}}, content);
+            {% endif %}
 
             sign_in_with_extension(
                 tx,

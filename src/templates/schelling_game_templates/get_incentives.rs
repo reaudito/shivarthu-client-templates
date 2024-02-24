@@ -8,6 +8,7 @@ use leptos_router::*;
 #[component]
 pub fn GetIncentives() -> impl IntoView {
     let params = use_params_map();
+    {% if params_type is containing("account") %}
     let {{params_variable}} = move || {
         params.with(|params| {
             params
@@ -16,6 +17,21 @@ pub fn GetIncentives() -> impl IntoView {
                 .unwrap_or_default()
         })
     };
+    {% endif %}
+
+    {% if params_type is containing("number") %}
+
+    let {{params_variable}} = move || {
+        params.with(|params| {
+            params
+                .get("{{params_variable}}")
+                .cloned()
+                .and_then(|value| value.parse::<u64>().ok())
+                .unwrap_or_default()
+        })
+    };
+
+    {% endif %}
 
     // gloo::console::log!({{params_variable}}());
     let (current_view, set_current_view) = create_signal(View::Form);
