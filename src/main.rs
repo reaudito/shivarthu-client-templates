@@ -27,39 +27,65 @@ lazy_static! {
 fn main() {
     let mut context = Context::new();
 
+    // let multiline_str = r#"This is a multiline
+    // string without escaping special characters."#;
     context.insert("params_variable", &"profile_user_account");
+    context.insert("params_variable_type", "String");
+    context.insert("schelling_game_name", "profile-validation");
+    context.insert("template_function_name", "profile_validation");
+    context.insert("module_name", "profile_validation");
 
-    let template_name = "apply_jurors.rs";
+    // let template_name = "apply_jurors.rs";
     let save_directory = "profile_validation";
+    let template_dir = "src/templates/schelling_game_templates";
+    let template_folder = "schelling_game_templates";
 
-    match TEMPLATES.render(template_name, &context) {
-        Ok(s) => {
-            let directory_path = format!("{}/{}", OUT_DIR, save_directory);
+    // Read the directory
+    if let Ok(entries) = fs::read_dir(template_dir) {
+        // Iterate over the entries
+        for entry in entries {
+            if let Ok(entry) = entry {
+                // Check if it's a file (not a directory)
+                if entry.file_type().map_or(false, |ft| ft.is_file()) {
+                    // Get the file name as a String
+                    if let Some(file_name) = entry.file_name().to_str() {
+                        let template_name = format!("{}/{}", template_folder, file_name);
+                        println!("{}", template_name);
+                        match TEMPLATES.render(&template_name, &context) {
+                            Ok(s) => {
+                                let directory_path = format!("{}/{}", OUT_DIR, save_directory);
 
-            if let Err(err) = fs::create_dir_all(directory_path.clone()) {
-                eprintln!("Error creating directory: {}", err);
-                ::std::process::exit(1);
+                                if let Err(err) = fs::create_dir_all(directory_path.clone()) {
+                                    eprintln!("Error creating directory: {}", err);
+                                    ::std::process::exit(1);
+                                }
+                                let file_path = Path::new(&directory_path).join(file_name);
+
+                                // println!("{:?}", s);
+                                if let Err(err) = fs::write(&file_path, s) {
+                                    eprintln!("Error writing to file: {}", err);
+                                    ::std::process::exit(1);
+                                }
+
+                                println!(
+                                    "Template rendered successfully. Output written to: {:?}",
+                                    file_path
+                                );
+                            }
+                            Err(e) => {
+                                println!("Error: {}", e);
+                                let mut cause = e.source();
+                                while let Some(e) = cause {
+                                    println!("Reason: {}", e);
+                                    cause = e.source();
+                                }
+                            }
+                        };
+                    }
+                }
             }
-            let file_path = Path::new(&directory_path).join(template_name);
-
-            // println!("{:?}", s);
-            if let Err(err) = fs::write(&file_path, s) {
-                eprintln!("Error writing to file: {}", err);
-                ::std::process::exit(1);
-            }
-
-            println!(
-                "Template rendered successfully. Output written to: {:?}",
-                file_path
-            );
         }
-        Err(e) => {
-            println!("Error: {}", e);
-            let mut cause = e.source();
-            while let Some(e) = cause {
-                println!("Reason: {}", e);
-                cause = e.source();
-            }
-        }
-    };
+    } else {
+        eprintln!("Error reading directory: {}", template_dir);
+    }
 }

@@ -1,5 +1,5 @@
 use crate::components::navigation::nav::Nav;
-use crate::components::schelling_game::profile_validation::apply_jurors_sign_in::SignTransaction;
+use crate::components::schelling_game::{{module_name}}::commit_vote_sign_in::SignTransaction;
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -7,7 +7,7 @@ use leptos::*;
 use leptos_router::*;
 
 #[component]
-pub fn ApplyJurors() -> impl IntoView {
+pub fn CommitVote() -> impl IntoView {
     let params = use_params_map();
     let {{params_variable}} = move || {
         params.with(|params| {
@@ -18,20 +18,20 @@ pub fn ApplyJurors() -> impl IntoView {
         })
     };
 
-    // gloo::console::log!(profile_user_account());
+    // gloo::console::log!({{params_variable}}());
     let (current_view, set_current_view) = create_signal(View::Form);
-    let (juror_stake, set_juror_stake) = create_signal::<Result<u128, ErrorString>>(Ok(0));
+    let (hash, set_hash) = create_signal::<Result<Option<[u8; 32]>, ErrorString>>(Ok(None));
+    let (commit_vote, set_commit_vote) = create_signal(String::from(""));
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
+        if !commit_vote().is_empty() {
+            let hash_data = sp_core_hashing::keccak_256(commit_vote().as_bytes());
+            set_hash(Ok(Some(hash_data)));
+        } else {
+            panic!("Commit vote is empty");
+        }
 
         set_current_view(View::Success);
-    };
-
-    let stake_value = move |value: String| {
-        let stake = value.parse::<u128>().expect("Invalid input");
-        gloo::console::log!(stake);
-
-        set_juror_stake(Ok(stake));
     };
 
     let render_view = move || match current_view() {
@@ -45,17 +45,17 @@ pub fn ApplyJurors() -> impl IntoView {
                     >
                         <div class="mb-5">
                             <label
-                                for="juror-stake"
+                                for="commit-vote"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                             >
-                                Juror Stake
+                                Commit Vote
                             </label>
                             <input
-                                type="number"
-                                id="juror-stake"
+                                type="text"
+                                id="commit-vote"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required
-                                on:input=move |e| stake_value(event_target_value(&e))
+                                on:input=move |ev| set_commit_vote(event_target_value(&ev))
                             />
                         </div>
                         <button
@@ -73,7 +73,7 @@ pub fn ApplyJurors() -> impl IntoView {
             view! {
                 <div>
                     <SignTransaction
-                        stake=juror_stake().unwrap()
+                        hash=hash().unwrap().unwrap()
                         {{params_variable}}={{params_variable}}()
                     />
 
