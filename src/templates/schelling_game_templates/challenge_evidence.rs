@@ -26,32 +26,8 @@ async fn get_cid_post(
 }
 
 #[component]
-pub fn ChallengeEvidence() -> impl IntoView {
-    let params = use_params_map();
-    {% if params_type is containing("account") %}
-    let {{params_variable}} = move || {
-        params.with(|params| {
-            params
-                .get("{{params_variable}}")
-                .cloned()
-                .unwrap_or_default()
-        })
-    };
-    {% endif %}
-
-    {% if params_type is containing("number") %}
-
-    let {{params_variable}} = move || {
-        params.with(|params| {
-            params
-                .get("{{params_variable}}")
-                .cloned()
-                .and_then(|value| value.parse::<u64>().ok())
-                .unwrap_or_default()
-        })
-    };
-
-    {% endif %}
+pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
+    
     let (current_view, set_current_view) = create_signal(View::Form);
     let (markdown, set_markdown) = create_signal(String::from(""));
     let (post_cid, set_post_cid) = create_signal(String::from(""));
@@ -129,7 +105,7 @@ pub fn ChallengeEvidence() -> impl IntoView {
 
         View::Success => view! {
             <div>
-                <SignTransaction post_cid=post_cid() {{params_variable}}={{params_variable}}()/>
+                <SignTransaction post_cid=post_cid() {{params_variable}}={{params_variable}}.clone()/>
             </div>
         },
     };

@@ -3,38 +3,13 @@ use leptos::*;
 use leptos_router::*;
 
 #[component]
-pub fn ChangePeriod() -> impl IntoView {
-    let params = use_params_map();
+pub fn ChangePeriod({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     let navigate = leptos_router::use_navigate();
 
-    {% if params_type is containing("account") %}
-    let {{params_variable}} = move || {
-        params.with(|params| {
-            params
-                .get("{{params_variable}}")
-                .cloned()
-                .unwrap_or_default()
-        })
-    };
-    {% endif %}
-
-    {% if params_type is containing("number") %}
-
-    let {{params_variable}} = move || {
-        params.with(|params| {
-            params
-                .get("{{params_variable}}")
-                .cloned()
-                .and_then(|value| value.parse::<u64>().ok())
-                .unwrap_or_default()
-        })
-    };
-
-    {% endif %}
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
         navigate(
-            &format!("{{schelling_game_name}}-change-period/{}", {{params_variable}}()),
+            &format!("{{schelling_game_name}}-change-period/{}", {{params_variable}}.clone()),
             Default::default(),
         );
     };
