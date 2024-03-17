@@ -1,11 +1,12 @@
+use crate::modules::common_variables::EXTRINSIC_LOAD;
 use crate::modules::template::{OUT_DIR, TEMPLATES};
 use std::error::Error;
 use std::fs;
 use std::path::Path;
 use tera::{Context, Result};
-
 pub fn department_funding() {
     let mut context = Context::new();
+    context.insert("extrinsic_load", EXTRINSIC_LOAD);
 
     // let multiline_str = r#"This is a multiline
     // string without escaping special characters."#;

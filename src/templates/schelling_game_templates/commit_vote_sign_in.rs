@@ -47,8 +47,8 @@ pub fn ExtensionTransaction(
     account_address: String,
     account_source: String,
 ) -> impl IntoView {
-    let (error, set_error) = create_signal(String::from("hello"));
-    let (extrinsic_success, set_extrinsic_success) = create_signal(String::from("extrinsic"));
+    let (error, set_error) = create_signal(String::from(""));
+    let (extrinsic_success, set_extrinsic_success) = create_signal(String::from(""));
     let transaction_resource = create_local_resource(
         move || {
             (
@@ -97,21 +97,5 @@ pub fn ExtensionTransaction(
         },
     );
 
-    let loading = transaction_resource.loading();
-    let is_loading = move || {
-        if loading() {
-            "Loading... Please sign with extension."
-        } else {
-            "Idle."
-        }
-    };
-
-    view! {
-        <div>
-            <div>{move || transaction_resource.get()}</div>
-            <div>{move || is_loading()}</div>
-            <div>{move || error()}</div>
-            <div>{move || extrinsic_success()}</div>
-        </div>
-    }
+    {{extrinsic_load}}
 }

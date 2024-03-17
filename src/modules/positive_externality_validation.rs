@@ -1,3 +1,4 @@
+use crate::modules::common_variables::EXTRINSIC_LOAD;
 use crate::modules::template::{OUT_DIR, TEMPLATES};
 use std::error::Error;
 use std::fs;
@@ -9,6 +10,7 @@ use tera::{Context, Result};
 
 pub fn positive_externality_validation() {
     let mut context = Context::new();
+    context.insert("extrinsic_load", EXTRINSIC_LOAD);
 
     // let multiline_str = r#"This is a multiline
     // string without escaping special characters."#;
@@ -18,7 +20,6 @@ pub fn positive_externality_validation() {
     context.insert("schelling_game_name", "positive-externality-validation");
     context.insert("template_function_name", "positive_externality_validation");
     context.insert("module_name", "positive_externality_validation");
-
 
     // let template_name = "apply_jurors.rs";
     let save_directory = "positive_externality_validation";
