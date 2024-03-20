@@ -12,6 +12,13 @@ pub fn profile_validaton() {
     let mut context = Context::new();
     context.insert("extrinsic_load", EXTRINSIC_LOAD);
 
+    let module_name = "profile_validation";
+    let import_crates_challenge_evidence = r#"use crate::components::schelling_game::profile_validation::rpc::evidence_end_block::EvidenceEndBlock;
+use crate::components::schelling_game::profile_validation::storage::challenger_fees::ChallengerFees;"#;
+
+    let components_challenge_evidence = r#"<EvidenceEndBlock profile_user_account=profile_user_account.clone() />
+                    <ChallengerFees  profile_user_account=profile_user_account.clone() />"#;
+
     // let multiline_str = r#"This is a multiline
     // string without escaping special characters."#;
     context.insert("params_variable", &"profile_user_account");
@@ -19,7 +26,15 @@ pub fn profile_validaton() {
     context.insert("params_type", "account");
     context.insert("schelling_game_name", "profile-validation");
     context.insert("template_function_name", "profile_validation");
-    context.insert("module_name", "profile_validation");
+    context.insert("module_name", module_name);
+    context.insert(
+        "import_crates_challenge_evidence",
+        &import_crates_challenge_evidence,
+    );
+    context.insert(
+        "components_challenge_evidence",
+        components_challenge_evidence,
+    );
 
     // let template_name = "apply_jurors.rs";
     let save_directory = "profile_validation";
