@@ -1,5 +1,8 @@
-use crate::components::navigation::nav::Nav;
 use crate::components::schelling_game::{{module_name}}::apply_jurors_sign_in::SignTransaction;
+{% if get_period %}{{ get_period.0 }}{% endif %}
+{% if change_period %}{{ change_period.0 }}{% endif %}
+{% if staking_end_block %}{{ staking_end_block.0 }}{% endif %}
+
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -27,9 +30,14 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
     let render_view = move || match current_view() {
         View::Form => {
             view! {
-                <div>
+                <div
+                class="max-w-5xl mx-auto max-md:mx-10"
+                >
+                {% if get_period %}{{ get_period.1 }}{% endif %}
+                {% if change_period %}{{ change_period.1 }}{% endif %}
+                {% if staking_end_block %}{{ staking_end_block.1 }}{% endif %}
                     <form
-                        class="max-w-5xl mx-auto max-md:mx-10"
+                        
                         id="apply-juror-submit-from"
                         on:submit=submit_click
                     >
@@ -70,14 +78,10 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
                 </div>
             }
         }
-        _ => {
-            view! { <div></div> }
-        }
     };
 
     view! {
         <>
-            <Nav/>
             {move || render_view()}
         </>
     }

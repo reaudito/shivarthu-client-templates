@@ -1,7 +1,6 @@
 use crate::components::api::ipfs_request::ipfs_call_json_string;
 use crate::components::api::select_ipfs_provider::DEFAULT_IPFS_PROVIDER;
 use crate::components::markdown::markdown_field::MarkdownField;
-use crate::components::navigation::nav::Nav;
 use crate::components::schelling_game::{{module_name}}::challenge_evidence_sign_in::SignTransaction;
 {% if import_crates_challenge_evidence %}{{ import_crates_challenge_evidence }}{% endif %}
 use crate::services::common_imp::View;
@@ -112,7 +111,6 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
 
     view! {
         <>
-            <Nav/>
             {move || render_view()}
         </>
     }

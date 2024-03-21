@@ -1,4 +1,3 @@
-use crate::components::navigation::nav::Nav;
 use crate::components::schelling_game::{{module_name}}::commit_vote_sign_in::SignTransaction;
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
@@ -72,14 +71,11 @@ pub fn CommitVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
                 </div>
             }
         }
-        _ => {
-            view! { <div></div> }
-        }
+       
     };
 
     view! {
         <>
-            <Nav/>
             {move || render_view()}
         </>
     }

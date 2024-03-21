@@ -15,6 +15,13 @@ pub fn profile_validaton() {
     let module_name = "profile_validation";
     let import_crates_challenge_evidence = r#"use crate::components::schelling_game::profile_validation::rpc::evidence_end_block::EvidenceEndBlock;
 use crate::components::schelling_game::profile_validation::storage::challenger_fees::ChallengerFees;"#;
+    let import_get_period = "use crate::components::schelling_game::profile_validation::storage::get_period::GetPeriod;";
+    let import_crates_staking_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::staking_end_block::StakingEndBlock;"#;
+    let import_crates_change_period = "use crate::components::schelling_game::profile_validation::change_period::ChangePeriod;";
+
+    let components_get_period = "<GetPeriod profile_user_account=profile_user_account.clone() />";
+    let components_change_period = "<ChangePeriod profile_user_account=profile_user_account.clone() />";
+    let components_staking_end_block = r#"<StakingEndBlock profile_user_account=profile_user_account.clone() />"#;
 
     let components_challenge_evidence = r#"<EvidenceEndBlock profile_user_account=profile_user_account.clone() />
                     <ChallengerFees  profile_user_account=profile_user_account.clone() />"#;
@@ -35,6 +42,9 @@ use crate::components::schelling_game::profile_validation::storage::challenger_f
         "components_challenge_evidence",
         components_challenge_evidence,
     );
+    context.insert("change_period", &(import_crates_change_period, components_change_period));
+    context.insert("get_period", &(import_get_period, components_get_period));
+    context.insert("staking_end_block", &(import_crates_staking_end_block, components_staking_end_block));
 
     // let template_name = "apply_jurors.rs";
     let save_directory = "profile_validation";

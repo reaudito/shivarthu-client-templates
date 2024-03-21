@@ -1,4 +1,3 @@
-use crate::components::navigation::nav::Nav;
 use crate::components::schelling_game::{{module_name}}::get_incentives_sign_in::SignTransaction;
 use crate::services::common_imp::View;
 use leptos::ev::SubmitEvent;
@@ -43,14 +42,11 @@ pub fn GetIncentives({{params_variable}}: {{params_variable_type}}) -> impl Into
                 </div>
             }
         }
-        _ => {
-            view! { <div></div> }
-        }
+       
     };
 
     view! {
         <>
-            <Nav/>
             {move || render_view()}
         </>
     }
