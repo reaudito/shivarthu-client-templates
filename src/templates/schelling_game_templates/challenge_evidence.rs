@@ -65,7 +65,7 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
                 <div class="max-w-5xl mx-auto max-md:mx-10">
                     {% if components_challenge_evidence %}{{ components_challenge_evidence }}{% endif %}
                     <form                       
-                        id="add-profile-submit-from"
+                        id="challenge-evidence-submit-from"
                         on:submit=submit_click
                     >
 
@@ -78,7 +78,7 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
                             </label>
                             <MarkdownField
                                 set_markdown=set_markdown
-                                name=String::from("Challenge Details")
+                                name=String::from("challenge-details")
                                 class=String::from(
                                     "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500",
                                 )
@@ -88,6 +88,7 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
 
                         <button
                             type="submit"
+                            id="challenge-evidence-submit"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         >
 
