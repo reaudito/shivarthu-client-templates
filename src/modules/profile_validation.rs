@@ -18,13 +18,38 @@ use crate::components::schelling_game::profile_validation::storage::challenger_f
     let import_get_period = "use crate::components::schelling_game::profile_validation::storage::get_period::GetPeriod;";
     let import_crates_staking_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::staking_end_block::StakingEndBlock;"#;
     let import_crates_change_period = "use crate::components::schelling_game::profile_validation::change_period::ChangePeriod;";
+    let import_crates_drawing_period_end = r#"use crate::components::schelling_game::profile_validation::rpc::drawing_period_end::DrawingEndBlock;"#;
+    let import_crate_commit_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::commit_end_block::CommitEndBlock;"#;
 
     let components_get_period = "<GetPeriod profile_user_account=profile_user_account.clone() />";
     let components_change_period = "<ChangePeriod profile_user_account=profile_user_account.clone() />";
     let components_staking_end_block = r#"<StakingEndBlock profile_user_account=profile_user_account.clone() />"#;
+    let components_drawing_period_end = "<DrawingEndBlock profile_user_account=profile_user_account.clone() />";
+    let components_commit_end_block = "<CommitEndBlock profile_user_account=profile_user_account.clone() />";
 
     let components_challenge_evidence = r#"<EvidenceEndBlock profile_user_account=profile_user_account.clone() />
                     <ChallengerFees  profile_user_account=profile_user_account.clone() />"#;
+
+    let commit_vote_msg = r#"
+    <div class="flex justify-center items-center">
+    <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+    <h2 class="card-title">How to vote?</h2>
+    <p> Vote format, first character can be 0 or 1, your choice, then a unique
+    string or salt.
+    <br />1 = Evidence given for profile are valid <br />
+    0 = Evidence given for profile are invalid
+    <br/>
+    <br/>
+    For example, <br />
+    0iilzmfeofopzblgycbuiahhkptp <br />
+    1psiycigusjdkfoartn <br />
+    0lbjvjgzqwigattqdqglzxxdepmwnsf <br />
+    </p>
+    <p><b>Save the vote in safe place.</b></p>
+    </div>
+  </div>
+  </div>"#;
 
     // let multiline_str = r#"This is a multiline
     // string without escaping special characters."#;
@@ -45,6 +70,9 @@ use crate::components::schelling_game::profile_validation::storage::challenger_f
     context.insert("change_period", &(import_crates_change_period, components_change_period));
     context.insert("get_period", &(import_get_period, components_get_period));
     context.insert("staking_end_block", &(import_crates_staking_end_block, components_staking_end_block));
+    context.insert("drawing_period_end", &(import_crates_drawing_period_end, components_drawing_period_end));
+    context.insert("commit_end_block", &(import_crate_commit_end_block, components_commit_end_block));
+    context.insert("commit_vote_msg", &commit_vote_msg);
 
     // let template_name = "apply_jurors.rs";
     let save_directory = "profile_validation";

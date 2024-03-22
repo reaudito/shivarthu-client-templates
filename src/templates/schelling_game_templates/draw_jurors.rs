@@ -1,4 +1,7 @@
 use crate::components::schelling_game::{{module_name}}::draw_jurors_sign_in::SignTransaction;
+{% if get_period %}{{ get_period.0 }}{% endif %}
+{% if change_period %}{{ change_period.0 }}{% endif %}
+{% if drawing_period_end %}{{ drawing_period_end.0 }}{% endif %}
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -27,6 +30,9 @@ pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
         View::Form => {
             view! {
                 <div class="max-w-5xl mx-auto max-md:mx-10">
+                {% if get_period %}{{ get_period.1 }}{% endif %}
+                {% if change_period %}{{ change_period.1 }}{% endif %}
+                {% if drawing_period_end %}{{ drawing_period_end.1 }}{% endif %}
                     <form                       
                         id="draw-juror-submit-from"
                         on:submit=submit_click
