@@ -31,8 +31,9 @@ pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
             view! {
                 <div class="max-w-5xl mx-auto max-md:mx-10">
                 {% if get_period %}{{ get_period.1 }}{% endif %}
-                {% if change_period %}{{ change_period.1 }}{% endif %}
                 {% if drawing_period_end %}{{ drawing_period_end.1 }}{% endif %}
+                {% if change_period %}{{ change_period.1 }}{% endif %}
+
                     <form                       
                         id="draw-juror-submit-from"
                         on:submit=submit_click

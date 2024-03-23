@@ -17,15 +17,23 @@ pub fn profile_validaton() {
 use crate::components::schelling_game::profile_validation::storage::challenger_fees::ChallengerFees;"#;
     let import_get_period = "use crate::components::schelling_game::profile_validation::storage::get_period::GetPeriod;";
     let import_crates_staking_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::staking_end_block::StakingEndBlock;"#;
-    let import_crates_change_period = "use crate::components::schelling_game::profile_validation::change_period::ChangePeriod;";
+    let import_crates_change_period =
+        "use crate::components::schelling_game::profile_validation::change_period::ChangePeriod;";
     let import_crates_drawing_period_end = r#"use crate::components::schelling_game::profile_validation::rpc::drawing_period_end::DrawingEndBlock;"#;
     let import_crate_commit_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::commit_end_block::CommitEndBlock;"#;
+    let import_crate_vote_end_block = r#"use crate::components::schelling_game::profile_validation::rpc::vote_end_block::VoteEndBlock;"#;
 
     let components_get_period = "<GetPeriod profile_user_account=profile_user_account.clone() />";
-    let components_change_period = "<ChangePeriod profile_user_account=profile_user_account.clone() />";
-    let components_staking_end_block = r#"<StakingEndBlock profile_user_account=profile_user_account.clone() />"#;
-    let components_drawing_period_end = "<DrawingEndBlock profile_user_account=profile_user_account.clone() />";
-    let components_commit_end_block = "<CommitEndBlock profile_user_account=profile_user_account.clone() />";
+    let components_change_period =
+        "<ChangePeriod profile_user_account=profile_user_account.clone() />";
+    let components_staking_end_block =
+        r#"<StakingEndBlock profile_user_account=profile_user_account.clone() />"#;
+    let components_drawing_period_end =
+        "<DrawingEndBlock profile_user_account=profile_user_account.clone() />";
+    let components_commit_end_block =
+        "<CommitEndBlock profile_user_account=profile_user_account.clone() />";
+    let components_vote_end_block =
+        "<VoteEndBlock profile_user_account=profile_user_account.clone() />";
 
     let components_challenge_evidence = r#"<EvidenceEndBlock profile_user_account=profile_user_account.clone() />
                     <ChallengerFees  profile_user_account=profile_user_account.clone() />"#;
@@ -67,11 +75,33 @@ use crate::components::schelling_game::profile_validation::storage::challenger_f
         "components_challenge_evidence",
         components_challenge_evidence,
     );
-    context.insert("change_period", &(import_crates_change_period, components_change_period));
+    context.insert(
+        "change_period",
+        &(import_crates_change_period, components_change_period),
+    );
     context.insert("get_period", &(import_get_period, components_get_period));
-    context.insert("staking_end_block", &(import_crates_staking_end_block, components_staking_end_block));
-    context.insert("drawing_period_end", &(import_crates_drawing_period_end, components_drawing_period_end));
-    context.insert("commit_end_block", &(import_crate_commit_end_block, components_commit_end_block));
+    context.insert(
+        "staking_end_block",
+        &(
+            import_crates_staking_end_block,
+            components_staking_end_block,
+        ),
+    );
+    context.insert(
+        "drawing_period_end",
+        &(
+            import_crates_drawing_period_end,
+            components_drawing_period_end,
+        ),
+    );
+    context.insert(
+        "commit_end_block",
+        &(import_crate_commit_end_block, components_commit_end_block),
+    );
+    context.insert(
+        "vote_end_block",
+        &(import_crate_vote_end_block, components_vote_end_block),
+    );
     context.insert("commit_vote_msg", &commit_vote_msg);
 
     // let template_name = "apply_jurors.rs";

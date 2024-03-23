@@ -34,8 +34,8 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
                 class="max-w-5xl mx-auto max-md:mx-10"
                 >
                 {% if get_period %}{{ get_period.1 }}{% endif %}
-                {% if change_period %}{{ change_period.1 }}{% endif %}
                 {% if staking_end_block %}{{ staking_end_block.1 }}{% endif %}
+                {% if change_period %}{{ change_period.1 }}{% endif %}
                     <form
                         
                         id="apply-juror-submit-from"
