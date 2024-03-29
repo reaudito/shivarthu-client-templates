@@ -13,6 +13,7 @@ pub fn department_funding() {
     context.insert("params_variable", &"department_required_fund_id");
     context.insert("params_variable_type", "u64");
     context.insert("params_type", "number");
+    context.insert("choice_type", "u128");
     context.insert("schelling_game_name", "department-funding");
     context.insert("template_function_name", "department_funding");
     context.insert("module_name", "department_funding");

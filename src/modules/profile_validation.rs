@@ -64,6 +64,7 @@ use crate::components::schelling_game::profile_validation::storage::challenger_f
     context.insert("params_variable", &"profile_user_account");
     context.insert("params_variable_type", "String");
     context.insert("params_type", "account");
+    context.insert("choice_type", "u128");
     context.insert("schelling_game_name", "profile-validation");
     context.insert("template_function_name", "profile_validation");
     context.insert("module_name", module_name);

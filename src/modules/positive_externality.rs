@@ -8,7 +8,7 @@ use tera::{Context, Result};
 // Docs
 // https://github.com/Keats/tera/blob/master/examples/basic/main.rs
 
-pub fn positive_externality_validation() {
+pub fn positive_externality() {
     let mut context = Context::new();
     context.insert("extrinsic_load", EXTRINSIC_LOAD);
 
@@ -17,12 +17,13 @@ pub fn positive_externality_validation() {
     context.insert("params_variable", &"user_to_calculate");
     context.insert("params_variable_type", "String");
     context.insert("params_type", "account");
-    context.insert("schelling_game_name", "positive-externality-validation");
-    context.insert("template_function_name", "positive_externality_validation");
-    context.insert("module_name", "positive_externality_validation");
+    context.insert("choice_type", "i64");
+    context.insert("schelling_game_name", "positive-externality");
+    context.insert("template_function_name", "positive_externality");
+    context.insert("module_name", "positive_externality");
 
     // let template_name = "apply_jurors.rs";
-    let save_directory = "positive_externality_validation";
+    let save_directory = "positive_externality";
     let template_dir = "src/templates/schelling_game_templates";
     let template_folder = "schelling_game_templates";
 

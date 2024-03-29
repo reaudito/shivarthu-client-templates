@@ -6,12 +6,12 @@ use std::str::FromStr;
 use subxt::utils::AccountId32;
 
 #[component]
-pub fn SignTransaction(salt: String, choice: u128, {{params_variable}}: {{params_variable_type}}) -> impl IntoView {
+pub fn SignTransaction(salt: String, choice: {{choice_type}}, {{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     view! { <ExtensionSignIn salt=salt choice=choice {{params_variable}}={{params_variable}}/> }
 }
 
 #[component]
-pub fn ExtensionSignIn(salt: String, choice: u128, {{params_variable}}: {{params_variable_type}}) -> impl IntoView {
+pub fn ExtensionSignIn(salt: String, choice: {{choice_type}}, {{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     let (account_load, set_account_load) = create_signal(("".to_owned(), "".to_owned()));
 
     let render_html = move || {
@@ -44,7 +44,7 @@ pub fn ExtensionSignIn(salt: String, choice: u128, {{params_variable}}: {{params
 #[component]
 pub fn ExtensionTransaction(
     salt: String,
-    choice: u128,
+    choice: {{choice_type}},
     {{params_variable}}: {{params_variable_type}},
     account_address: String,
     account_source: String,

@@ -13,7 +13,7 @@ pub fn RevealVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
     
     // gloo::console::log!({{params_variable}}());
     let (current_view, set_current_view) = create_signal(View::Form);
-    let (choice, set_choice) = create_signal::<Result<Option<u128>, ErrorString>>(Ok(None));
+    let (choice, set_choice) = create_signal::<Result<Option<{{choice_type}}>, ErrorString>>(Ok(None));
     let (salt, set_salt) = create_signal(String::from(""));
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
@@ -25,7 +25,7 @@ pub fn RevealVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
     };
 
     let choice_changed = move |value: String| {
-        let choice_value = value.parse::<u128>().expect("Invalid input");
+        let choice_value = value.parse::<{{choice_type}}>().expect("Invalid input");
         gloo::console::log!(choice_value);
 
         set_choice(Ok(Some(choice_value)));

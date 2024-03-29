@@ -17,6 +17,7 @@ pub fn project_tips() {
     context.insert("params_variable", &"project_id");
     context.insert("params_variable_type", "u64");
     context.insert("params_type", "number");
+    context.insert("choice_type", "u128");
     context.insert("schelling_game_name", "project-tips");
     context.insert("template_function_name", "project_tips");
     context.insert("module_name", "project_tips");

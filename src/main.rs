@@ -1,5 +1,5 @@
 use shivarthu_client_templates::modules::department_funding::department_funding;
-use shivarthu_client_templates::modules::positive_externality_validation::positive_externality_validation;
+use shivarthu_client_templates::modules::positive_externality::positive_externality;
 use shivarthu_client_templates::modules::profile_validation::profile_validaton;
 use shivarthu_client_templates::modules::project_tips::project_tips;
 
@@ -9,6 +9,6 @@ use shivarthu_client_templates::modules::project_tips::project_tips;
 fn main() {
     profile_validaton();
     department_funding();
-    positive_externality_validation();
+    positive_externality();
     project_tips();
 }
