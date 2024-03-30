@@ -1,8 +1,7 @@
 use crate::components::schelling_game::{{module_name}}::apply_jurors_sign_in::SignTransaction;
-{% if get_period %}{{ get_period.0 }}{% endif %}
-{% if change_period %}{{ change_period.0 }}{% endif %}
-{% if staking_end_block %}{{ staking_end_block.0 }}{% endif %}
-
+use crate::components::schelling_game::{{module_name}}::storage::get_period::GetPeriod;
+use crate::components::schelling_game::{{module_name}}::change_period::ChangePeriod;
+use crate::components::schelling_game::{{module_name}}::rpc::staking_end_block::StakingEndBlock;
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -33,9 +32,9 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
                 <div
                 class="max-w-5xl mx-auto max-md:mx-10"
                 >
-                {% if get_period %}{{ get_period.1 }}{% endif %}
-                {% if staking_end_block %}{{ staking_end_block.1 }}{% endif %}
-                {% if change_period %}{{ change_period.1 }}{% endif %}
+                <GetPeriod {{params_variable}}={{params_variable}}.clone() /> 
+                <StakingEndBlock {{params_variable}}={{params_variable}}.clone() />
+                <ChangePeriod {{params_variable}}={{params_variable}}.clone() />
                     <form
                         
                         id="apply-juror-submit-from"

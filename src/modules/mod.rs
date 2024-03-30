@@ -4,3 +4,4 @@ pub mod positive_externality;
 pub mod profile_validation;
 pub mod project_tips;
 pub mod template;
+pub mod common_functions;

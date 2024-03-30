@@ -1,7 +1,7 @@
 use crate::components::schelling_game::{{module_name}}::commit_vote_sign_in::SignTransaction;
-{% if get_period %}{{ get_period.0 }}{% endif %}
-{% if change_period %}{{ change_period.0 }}{% endif %}
-{% if commit_end_block %}{{ commit_end_block.0 }}{% endif %}
+use crate::components::schelling_game::{{module_name}}::storage::get_period::GetPeriod;
+use crate::components::schelling_game::{{module_name}}::change_period::ChangePeriod;
+use crate::components::schelling_game::{{module_name}}::rpc::commit_end_block::CommitEndBlock;
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -32,9 +32,9 @@ pub fn CommitVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
         View::Form => {
             view! {
                 <div  class="max-w-5xl mx-auto max-md:mx-10">
-                {% if get_period %}{{ get_period.1 }}{% endif %}
-                {% if commit_end_block %}{{ commit_end_block.1 }}{% endif %}
-                {% if change_period %}{{ change_period.1 }}{% endif %}
+                <GetPeriod {{params_variable}}={{params_variable}}.clone() />                
+                <CommitEndBlock {{params_variable}}={{params_variable}}.clone()  />
+                <ChangePeriod {{params_variable}}={{params_variable}}.clone() />
                 <div>
                 {% if commit_vote_msg %}{{ commit_vote_msg }}{% endif %}                
                 </div>
