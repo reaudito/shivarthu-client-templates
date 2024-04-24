@@ -46,8 +46,8 @@ pub fn GetIncentives({{params_variable}}: {{params_variable_type}}) -> impl Into
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }

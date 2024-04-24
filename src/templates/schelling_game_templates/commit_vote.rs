@@ -85,8 +85,8 @@ pub fn CommitVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }

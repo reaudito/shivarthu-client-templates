@@ -81,8 +81,8 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }

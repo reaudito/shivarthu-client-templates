@@ -99,7 +99,6 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
 
                     </form>
                     <p>{move || pending().then(|| "Loading...")}</p>
-                    <p>"Pending: " <code>{move || format!("{:#?}", pending())}</code></p>
                     <p>{move || cid_value()}</p>
                 </div>
             }
@@ -113,8 +112,8 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }

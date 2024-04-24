@@ -45,8 +45,8 @@ pub fn Unstaking({{params_variable}}: {{params_variable_type}}) -> impl IntoView
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }

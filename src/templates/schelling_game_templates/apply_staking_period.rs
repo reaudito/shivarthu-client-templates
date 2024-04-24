@@ -57,8 +57,8 @@ pub fn ApplyStakingPeriod({{params_variable}}: {{params_variable_type}}) -> impl
     };
 
     view! {
-        <>
+        <div>
             {move || render_view()}
-        </>
+        </div>
     }
 }
