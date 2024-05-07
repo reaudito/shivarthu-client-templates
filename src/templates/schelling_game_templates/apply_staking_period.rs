@@ -1,6 +1,4 @@
 use crate::components::schelling_game::{{module_name}}::apply_staking_period_sign_in::SignTransaction;
-use crate::components::schelling_game::{{module_name}}::storage::get_period::GetPeriod;
-use crate::components::schelling_game::{{module_name}}::change_period::ChangePeriod;
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
@@ -24,10 +22,7 @@ pub fn ApplyStakingPeriod({{params_variable}}: {{params_variable_type}}) -> impl
                 <div
                 class="max-w-5xl mx-auto max-md:mx-10"
                 >
-                <GetPeriod {{params_variable}}={{params_variable}}.clone() /> 
-                <ChangePeriod {{params_variable}}={{params_variable}}.clone() />
-                    <form
-                        
+                    <form                        
                         id="apply-staking-period-from"
                         on:submit=submit_click
                     >

@@ -22,7 +22,7 @@ pub fn positive_externality() {
     context.insert("schelling_game_name", "positive-externality");
     context.insert("template_function_name", "positive_externality");
     context.insert("module_name", "positive_externality");
-    context.insert("rpc_link", "positive_externality");
+    context.insert("rpc_link", "positiveexternality");
     context.insert("sumtree", "PositiveExternality");
 
 

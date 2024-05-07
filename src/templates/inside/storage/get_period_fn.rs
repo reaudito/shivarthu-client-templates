@@ -51,6 +51,48 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: Wr
     }
 
         {% endif %}
+
+
+        {% if schelling_game_name is containing("positive-externality") %}
+
+        let account_id32 = AccountId32::from_str(&{{params_variable}}).unwrap();
+
+
+        let validation_block_storage = polkadot::storage()
+        .{{template_function_name}}()
+        .validation_block(account_id32.clone());
+
+        let validation_block = client
+        .storage()
+        .at_latest()
+        .await
+        .unwrap()
+        .fetch(&validation_block_storage)
+        .await
+        .unwrap();
+
+        if validation_block.is_some() {
+            let key = SumTreeName::{{sumtree}} {
+                user_address: account_id32.clone(),
+                block_number: validation_block.unwrap(),
+            };
+    
+            let period_storage = polkadot::storage().schelling_game_shared().period_name(key);
+            let period = client
+                .storage()
+                .at_latest()
+                .await
+                .unwrap()
+                .fetch(&period_storage)
+                .await
+                .unwrap();
+            gloo::console::log!(format!("period in block: {:?}", period));
+            set_period(period);
+        }
+
+
+
+        {% endif %}
     
        
     
