@@ -2,9 +2,9 @@ use crate::constants::constant::NODE_URL;
 use crate::services::common_services::polkadot;
 use leptos::*;
 use polkadot::runtime_types::schelling_game_shared::types::Period;
-use polkadot::runtime_types::sortition_sum_game::types::SumTreeName;
+use polkadot::runtime_types::sortition_sum_game::types::SumTreeName;{% if schelling_game_name is containing("profile-validation")  or schelling_game_name is containing("positive-externality")  %}
 use std::str::FromStr;
-use subxt::utils::AccountId32;
+use subxt::utils::AccountId32;{% endif %}
 use subxt::{OnlineClient, PolkadotConfig};
 
 async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: WriteSignal<Option<Period>>) {
@@ -21,7 +21,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: Wr
 
         let profile_validation_block_storage = polkadot::storage()
         .{{template_function_name}}()
-        .profile_validation_block(account_id32.clone());
+        .validation_block(account_id32.clone());
 
     let profile_validation_block = client
         .storage()
@@ -93,6 +93,84 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: Wr
 
 
         {% endif %}
+
+
+        {% if schelling_game_name is containing("department-funding") %}
+
+        let validation_block_storage = polkadot::storage()
+        .{{template_function_name}}()
+        .validation_block({{params_variable}});
+
+        let validation_block = client
+        .storage()
+        .at_latest()
+        .await
+        .unwrap()
+        .fetch(&validation_block_storage)
+        .await
+        .unwrap();
+
+        if validation_block.is_some() {
+            let key = SumTreeName::{{sumtree}} {
+                department_required_fund_id: {{params_variable}},
+                block_number: validation_block.unwrap(),
+            };
+    
+            let period_storage = polkadot::storage().schelling_game_shared().period_name(key);
+            let period = client
+                .storage()
+                .at_latest()
+                .await
+                .unwrap()
+                .fetch(&period_storage)
+                .await
+                .unwrap();
+            gloo::console::log!(format!("period in block: {:?}", period));
+            set_period(period);
+        }
+
+
+        {% endif %}
+
+
+        {% if schelling_game_name is containing("project-tips") %}
+
+        let validation_block_storage = polkadot::storage()
+        .{{template_function_name}}()
+        .validation_block({{params_variable}});
+
+        let validation_block = client
+        .storage()
+        .at_latest()
+        .await
+        .unwrap()
+        .fetch(&validation_block_storage)
+        .await
+        .unwrap();
+
+        if validation_block.is_some() {
+            let key = SumTreeName::{{sumtree}} {
+                project_id: {{params_variable}},
+                block_number: validation_block.unwrap(),
+            };
+    
+            let period_storage = polkadot::storage().schelling_game_shared().period_name(key);
+            let period = client
+                .storage()
+                .at_latest()
+                .await
+                .unwrap()
+                .fetch(&period_storage)
+                .await
+                .unwrap();
+            gloo::console::log!(format!("period in block: {:?}", period));
+            set_period(period);
+        }
+
+
+        {% endif %}
+
+
     
        
     
