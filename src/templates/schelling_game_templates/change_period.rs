@@ -1,6 +1,6 @@
 use leptos::ev::SubmitEvent;
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+use leptos_router::hooks::use_navigate;
 
 #[component]
 pub fn ChangePeriod({{params_variable}}: {{params_variable_type}}) -> impl IntoView {

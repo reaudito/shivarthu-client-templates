@@ -2,13 +2,13 @@ use crate::components::schelling_game::{{module_name}}::apply_staking_period_sig
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
-use leptos::*;
+use leptos::prelude::*;
 
 #[component]
 pub fn ApplyStakingPeriod({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
 
     // gloo::console::log!({{params_variable}}());
-    let (current_view, set_current_view) = create_signal(View::Form);
+    let (current_view, set_current_view) = signal(View::Form);
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
 
@@ -37,7 +37,7 @@ pub fn ApplyStakingPeriod({{params_variable}}: {{params_variable_type}}) -> impl
                         </button>
                     </form>
                 </div>
-            }
+            }.into_any()
         }
         View::Success => {
             view! {
@@ -47,7 +47,7 @@ pub fn ApplyStakingPeriod({{params_variable}}: {{params_variable_type}}) -> impl
                     />
 
                 </div>
-            }
+            }.into_any()
         }
     };
 

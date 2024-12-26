@@ -5,14 +5,14 @@ use crate::components::schelling_game::{{module_name}}::rpc::drawing_period_end:
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
-use leptos::*;
+use leptos::prelude::*;
 use leptos_router::*;
 
 #[component]
 pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
      // gloo::console::log!({{params_variable}}());
-    let (current_view, set_current_view) = create_signal(View::Form);
-    let (iterations, set_iterations) = create_signal::<Result<u64, ErrorString>>(Ok(0));
+    let (current_view, set_current_view) = signal(View::Form);
+    let (iterations, set_iterations) = signal::<Result<u64, ErrorString>>(Ok(0));
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
 
@@ -30,11 +30,11 @@ pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
         View::Form => {
             view! {
                 <div class="max-w-5xl mx-auto max-md:mx-10">
-                <GetPeriod {{params_variable}}={{params_variable}}.clone() /> 
-                <DrawingEndBlock {{params_variable}}={{params_variable}}.clone()  />               
+                <GetPeriod {{params_variable}}={{params_variable}}.clone() />
+                <DrawingEndBlock {{params_variable}}={{params_variable}}.clone()  />
                 <ChangePeriod {{params_variable}}={{params_variable}}.clone() />
 
-                    <form                       
+                    <form
                         id="draw-juror-submit-from"
                         on:submit=submit_click
                     >
@@ -63,7 +63,7 @@ pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
                         </button>
                     </form>
                 </div>
-            }
+            }.into_any()
         }
         View::Success => {
             view! {
@@ -74,9 +74,9 @@ pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
                     />
 
                 </div>
-            }
+            }.into_any()
         }
-       
+
     };
 
     view! {

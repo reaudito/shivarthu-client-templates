@@ -5,14 +5,14 @@ use crate::components::schelling_game::{{module_name}}::rpc::staking_end_block::
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
-use leptos::*;
+use leptos::prelude::*;
 
 #[component]
 pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
 
     // gloo::console::log!({{params_variable}}());
-    let (current_view, set_current_view) = create_signal(View::Form);
-    let (juror_stake, set_juror_stake) = create_signal::<Result<u128, ErrorString>>(Ok(0));
+    let (current_view, set_current_view) = signal(View::Form);
+    let (juror_stake, set_juror_stake) = signal::<Result<u128, ErrorString>>(Ok(0));
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
 
@@ -65,7 +65,7 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
                         </button>
                     </form>
                 </div>
-            }
+            }.into_any()
         }
         View::Success => {
             view! {
@@ -76,7 +76,7 @@ pub fn ApplyJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoVi
                     />
 
                 </div>
-            }
+            }.into_any()
         }
     };
 

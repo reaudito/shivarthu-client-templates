@@ -5,16 +5,16 @@ use crate::components::schelling_game::{{module_name}}::rpc::vote_end_block::Vot
 use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
+
 
 #[component]
 pub fn RevealVote({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     
     // gloo::console::log!({{params_variable}}());
-    let (current_view, set_current_view) = create_signal(View::Form);
-    let (choice, set_choice) = create_signal::<Result<Option<{{choice_type}}>, ErrorString>>(Ok(None));
-    let (salt, set_salt) = create_signal(String::from(""));
+    let (current_view, set_current_view) = signal(View::Form);
+    let (choice, set_choice) = signal::<Result<Option<{{choice_type}}>, ErrorString>>(Ok(None));
+    let (salt, set_salt) = signal(String::from(""));
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();
         if choice().unwrap().is_some() {
@@ -83,7 +83,7 @@ pub fn RevealVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
                         </button>
                     </form>
                 </div>
-            }
+            }.into_any()
         }
         View::Success => {
             view! {
@@ -95,7 +95,7 @@ pub fn RevealVote({{params_variable}}: {{params_variable_type}}) -> impl IntoVie
                     />
 
                 </div>
-            }
+            }.into_any()
         }
       
     };

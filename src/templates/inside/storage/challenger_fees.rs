@@ -1,6 +1,6 @@
 use crate::constants::constant::NODE_URL;
 use crate::services::common_services::polkadot;
-use leptos::*;
+use leptos::prelude::*;
 use std::str::FromStr;
 use subxt::utils::AccountId32;
 use subxt::{OnlineClient, PolkadotConfig};
@@ -28,7 +28,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_challenger
 
 #[component]
 pub fn ChallengerFees({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
-    let (challenger_fee, set_challenger_fee) = create_signal::<Option<u128>>(None);
+    let (challenger_fee, set_challenger_fee) = signal::<Option<u128>>(None);
 
     let action = create_action(
         |({{params_variable}}, set_challenger_fee): &({{params_variable_type}}, WriteSignal<Option<u128>>)| {

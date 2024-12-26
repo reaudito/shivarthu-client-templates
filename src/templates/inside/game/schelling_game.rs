@@ -7,8 +7,8 @@ use crate::components::schelling_game::{{module_name}}::commit_vote::CommitVote;
 use crate::components::schelling_game::{{module_name}}::draw_jurors::DrawJurors;
 use crate::components::schelling_game::{{module_name}}::reveal_vote::RevealVote;
 use crate::components::schelling_game::{{module_name}}::storage::get_period_fn::get_period_fn;
-use crate::services::common_services::polkadot::runtime_types::schelling_game_shared::types::Period;
-use leptos::*;
+use crate::services::common_services::polkadot::runtime_types::pallet_schelling_game_shared::types::Period;
+use leptos::prelude::*;
 use leptos_router::*;
 
 #[component]
@@ -19,7 +19,6 @@ pub fn SchellingGame() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .unwrap_or_default()
         })
     };
@@ -31,7 +30,6 @@ pub fn SchellingGame() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .and_then(|value| value.parse::<u64>().ok())
                 .unwrap_or_default()
         })
@@ -66,33 +64,33 @@ pub fn SchellingGameComponent({{params_variable}}: {{params_variable_type}}) -> 
                                 <ChallengeEvidence {{params_variable}}={{params_variable}}()/>
                             {% endif %}
                             </div>
-                        },
+                        }.into_any(),
                         Period::Staking => {
                             view! {
                                 <div>
                                     <ApplyJurors {{params_variable}}={{params_variable}}()/>
                                 </div>
-                            }
+                            }.into_any()
                         }
                         Period::Drawing => view! {
                             <div>
                                 <DrawJurors {{params_variable}}={{params_variable}}()/>
                             </div>
-                        },
+                        }.into_any(),
                         Period::Commit => view! {
                             <div>
                                 <CommitVote {{params_variable}}={{params_variable}}()/>
                             </div>
-                        },
+                        }.into_any(),
                         Period::Vote => view! {
                             <div>
                                 <RevealVote {{params_variable}}={{params_variable}}()/>
                             </div>
-                        },
-                        Period::Appeal => view! { <div></div> },
+                        }.into_any(),
+                        Period::Appeal => view! { <div></div> }.into_any(),
                         Period::Execution => {
                             view! { <div>You are in Execution phase. Get your incentives</div> }
-                        }
+                        }.into_any()
                     };
                     view
                 } else {
@@ -101,7 +99,7 @@ pub fn SchellingGameComponent({{params_variable}}: {{params_variable_type}}) -> 
                             <p>{format!("{:?}", period())}</p>
                             <p>{"No period"}</p>
                         </div>
-                    }
+                    }.into_any()
                 }
             }
         }

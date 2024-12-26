@@ -1,8 +1,8 @@
 use crate::constants::constant::NODE_URL;
 use crate::services::common_services::polkadot;
-use leptos::*;
-use polkadot::runtime_types::schelling_game_shared::types::Period;
-use polkadot::runtime_types::sortition_sum_game::types::SumTreeName;{% if schelling_game_name is containing("profile-validation")  or schelling_game_name is containing("positive-externality")  %}
+use leptos::prelude::*;
+use polkadot::runtime_types::pallet_schelling_game_shared::types::Period;
+use polkadot::runtime_types::pallet_sortition_sum_game::types::SumTreeName;{% if schelling_game_name is containing("profile-validation")  or schelling_game_name is containing("positive-externality")  %}
 use std::str::FromStr;
 use subxt::utils::AccountId32;{% endif %}
 use subxt::{OnlineClient, PolkadotConfig};
@@ -178,7 +178,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: Wr
 }
 
 pub fn get_period_fn({{params_variable}}: {{params_variable_type}}) -> ReadSignal<Option<Period>> {
-    let (period, set_period) = create_signal::<Option<Period>>(None);
+    let (period, set_period) = signal::<Option<Period>>(None);
 
     let action = create_action(
         |({{params_variable}}, set_period): &({{params_variable_type}}, WriteSignal<Option<Period>>)| {

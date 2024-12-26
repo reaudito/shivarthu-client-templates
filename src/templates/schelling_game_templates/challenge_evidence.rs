@@ -7,8 +7,7 @@ use crate::components::schelling_game::{{module_name}}::storage::challenger_fees
 use crate::services::common_imp::View;
 use json::object;
 use leptos::ev::SubmitEvent;
-use leptos::*;
-use leptos_router::*;
+use leptos::prelude::*;
 
 async fn get_cid_post(
     details: String,
@@ -29,9 +28,9 @@ async fn get_cid_post(
 #[component]
 pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     
-    let (current_view, set_current_view) = create_signal(View::Form);
-    let (markdown, set_markdown) = create_signal(String::from(""));
-    let (post_cid, set_post_cid) = create_signal(String::from(""));
+    let (current_view, set_current_view) = signal(View::Form);
+    let (markdown, set_markdown) = signal(String::from(""));
+    let (post_cid, set_post_cid) = signal(String::from(""));
 
     let submit_action = create_action(
         |(details, set_current_view, set_post_cid): &(
@@ -101,14 +100,14 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
                     <p>{move || pending().then(|| "Loading...")}</p>
                     <p>{move || cid_value()}</p>
                 </div>
-            }
+            }.into_any()
         }
 
         View::Success => view! {
             <div>
                 <SignTransaction post_cid=post_cid() {{params_variable}}={{params_variable}}.clone()/>
             </div>
-        },
+        }.into_any(),
     };
 
     view! {
