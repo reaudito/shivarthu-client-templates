@@ -30,7 +30,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_challenger
 pub fn ChallengerFees({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     let (challenger_fee, set_challenger_fee) = signal::<Option<u128>>(None);
 
-    let action = create_action(
+    let action: Action<({{params_variable_type}},WriteSignal<Option<u128>>), (), LocalStorage>= Action::new_unsync(
         |({{params_variable}}, set_challenger_fee): &({{params_variable_type}}, WriteSignal<Option<u128>>)| {
             let {{params_variable}} = {{params_variable}}.clone();
             let set_challenger_fee = set_challenger_fee.clone();

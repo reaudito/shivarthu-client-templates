@@ -23,7 +23,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_end_period
 pub fn EvidenceEndBlock({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
     let (end_period, set_end_period) = signal::<Option<u32>>(None);
 
-    let action = create_action(
+    let action: Action<({{params_variable_type}}, WriteSignal<Option<u32>>), (), LocalStorage>= Action::new_unsync(
         |({{params_variable}}, set_end_period): &({{params_variable_type}}, WriteSignal<Option<u32>>)| {
             let {{params_variable}} = {{params_variable}}.clone();
             let set_end_period = set_end_period.clone();
@@ -47,7 +47,7 @@ pub fn EvidenceEndBlock({{params_variable}}: {{params_variable_type}}) -> impl I
                             {"Evidence Period ends: "}
                             <span id="end-period-time">{move || end_period()}</span>
                         </div>
-                    }
+                    }.into_any()
                 } else {
                     view! {
                         <div>
@@ -55,11 +55,10 @@ pub fn EvidenceEndBlock({{params_variable}}: {{params_variable_type}}) -> impl I
                                 <Icon
                                     icon=icondata::ImSpinner6
                                     style="color: green"
-                                    class="inline-block"
                                 />
                             </span>
                         </div>
-                    }
+                    }.into_any()
                 }
             }}
 

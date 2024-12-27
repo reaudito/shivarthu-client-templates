@@ -10,7 +10,6 @@ pub fn ApplyStakingPeriodParams() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .unwrap_or_default()
         })
     };
@@ -22,7 +21,6 @@ pub fn ApplyStakingPeriodParams() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .and_then(|value| value.parse::<u64>().ok())
                 .unwrap_or_default()
         })

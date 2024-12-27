@@ -32,7 +32,7 @@ pub fn ChallengeEvidence({{params_variable}}: {{params_variable_type}}) -> impl 
     let (markdown, set_markdown) = signal(String::from(""));
     let (post_cid, set_post_cid) = signal(String::from(""));
 
-    let submit_action = create_action(
+    let submit_action: Action<({{params_variable_type}},WriteSignal<View>, WriteSignal<String>), (), LocalStorage> = Action::new_unsync(
         |(details, set_current_view, set_post_cid): &(
             String,
             WriteSignal<View>,

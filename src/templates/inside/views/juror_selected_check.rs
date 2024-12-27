@@ -1,7 +1,7 @@
 use crate::components::navigation::nav::Nav;
 use crate::components::schelling_game::{{module_name}}::rpc::juror_selected::JurorSelected;
 use leptos::prelude::*;
-use leptos_router::*;
+use leptos_router::hooks::use_params_map;
 
 #[component]
 pub fn JurorSelectedCheck() -> impl IntoView {
@@ -11,7 +11,6 @@ pub fn JurorSelectedCheck() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .unwrap_or_default()
         })
     };
@@ -23,7 +22,6 @@ pub fn JurorSelectedCheck() -> impl IntoView {
         params.with(|params| {
             params
                 .get("{{params_variable}}")
-                .cloned()
                 .and_then(|value| value.parse::<u64>().ok())
                 .unwrap_or_default()
         })

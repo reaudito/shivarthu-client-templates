@@ -180,7 +180,7 @@ async fn load_data({{params_variable}}: {{params_variable_type}}, set_period: Wr
 pub fn get_period_fn({{params_variable}}: {{params_variable_type}}) -> ReadSignal<Option<Period>> {
     let (period, set_period) = signal::<Option<Period>>(None);
 
-    let action = create_action(
+    let action: Action<({{params_variable_type}}, WriteSignal<Option<Period>>), (), LocalStorage> = Action::new_unsync(
         |({{params_variable}}, set_period): &({{params_variable_type}}, WriteSignal<Option<Period>>)| {
             let {{params_variable}} = {{params_variable}}.clone();
             let set_period = set_period.clone();

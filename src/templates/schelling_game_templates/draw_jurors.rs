@@ -6,7 +6,6 @@ use crate::services::common_imp::View;
 use crate::services::error::ErrorString;
 use leptos::ev::SubmitEvent;
 use leptos::prelude::*;
-use leptos_router::*;
 
 #[component]
 pub fn DrawJurors({{params_variable}}: {{params_variable_type}}) -> impl IntoView {

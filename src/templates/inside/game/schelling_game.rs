@@ -9,7 +9,8 @@ use crate::components::schelling_game::{{module_name}}::reveal_vote::RevealVote;
 use crate::components::schelling_game::{{module_name}}::storage::get_period_fn::get_period_fn;
 use crate::services::common_services::polkadot::runtime_types::pallet_schelling_game_shared::types::Period;
 use leptos::prelude::*;
-use leptos_router::*;
+use leptos_router::hooks::use_params_map;
+
 
 #[component]
 pub fn SchellingGame() -> impl IntoView {

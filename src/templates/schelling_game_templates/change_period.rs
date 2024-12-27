@@ -4,7 +4,7 @@ use leptos_router::hooks::use_navigate;
 
 #[component]
 pub fn ChangePeriod({{params_variable}}: {{params_variable_type}}) -> impl IntoView {
-    let navigate = leptos_router::use_navigate();
+    let navigate = use_navigate();
 
     let submit_click = move |e: SubmitEvent| {
         e.prevent_default();

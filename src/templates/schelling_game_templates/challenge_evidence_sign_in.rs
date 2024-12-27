@@ -84,7 +84,7 @@ pub fn ExtensionTransaction(
 ) -> impl IntoView {
     let (error, set_error) = signal(String::from(""));
     let (extrinsic_success, set_extrinsic_success) = signal(String::from(""));
-    let transaction_resource = create_local_resource(
+    let transaction_resource = LocalResource::new(
         move || transaction
             (
                 post_cid.clone(),
